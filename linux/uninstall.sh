@@ -9,14 +9,11 @@ if [[ "$answer" != "y" ]]; then
     exit 0
 fi
 
-# Stop the Zomboid Server if it's running
-sudo systemctl stop pzserver.service  # Assuming you have a service file for pzserver
-
 # Remove the Zomboid Server installation
-rm -rf /opt/pzserver
+sudo rm -rf /opt/pzserver
 
 # Remove the user "pzuser" and their home directory
-userdel -r pzuser
+sudo userdel -r pzuser
 
 # Remove firewall rules for Zomboid Server ports
 sudo ufw delete allow 16261/udp

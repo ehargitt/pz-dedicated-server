@@ -1,0 +1,17 @@
+services:
+  pzserver:
+    build: .
+    container_name: pzserver
+    ports:
+      - "16261:16261/udp"
+      - "16262:16262/udp"
+    volumes:
+      - pzserver-data:/opt/pzserver
+      - pzserver-config:/home/pzuser/Zomboid
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+volumes:
+  pzserver-data:
+  pzserver-config:

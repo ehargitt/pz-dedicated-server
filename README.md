@@ -73,6 +73,23 @@ To edit server settings, find the config files in the volume:
 docker compose exec pzserver ls /home/pzuser/Zomboid/Server
 ```
 
+## Workshop Mods
+
+Use `update-mods.py` to automatically update your server's mod list from a Steam Workshop collection. Requires Python 3 (no extra dependencies).
+
+```bash
+# Preview changes without modifying the config
+./update-mods.py --dry-run https://steamcommunity.com/sharedfiles/filedetails?id=YOUR_COLLECTION_ID
+
+# Update the server config (auto-detects the .ini in the Docker volume)
+./update-mods.py https://steamcommunity.com/sharedfiles/filedetails?id=YOUR_COLLECTION_ID
+
+# Specify a custom .ini path
+./update-mods.py --ini /path/to/servertest.ini https://steamcommunity.com/sharedfiles/filedetails?id=YOUR_COLLECTION_ID
+```
+
+The script fetches the collection from the Steam API, parses Mod IDs from each item's description, and updates the `Mods=` and `WorkshopItems=` lines in your server `.ini` file. Restart the server afterward for changes to take effect.
+
 ## Data Persistence
 
 Two named volumes keep your data safe across restarts and rebuilds:
